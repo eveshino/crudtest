@@ -11,7 +11,9 @@ export function AddCompany() {
   const [city, setCity] = useState("");
   const [local, setLocal] = useState("");
 
-  const submitCompany = () => {
+  const submitCompany = (event) => {
+    event.preventDefault();
+    alert("Company Created");
     Axios.post("http://localhost:3001/create", {
       name: name,
       email: email,
@@ -20,18 +22,19 @@ export function AddCompany() {
       city: city,
       local: local,
     })
-      .then(() => {
+      .then((response) => {
         console.log("Success");
       })
       .catch((err) => {
         console.log(err);
       });
+    event.target.reset();
   };
 
   return (
     <div className={styles.App}>
       <h1>Grune Backend Test</h1>
-      <form className={styles.form} method="POST">
+      <form className={styles.form} onSubmit={submitCompany}>
         <label>Company Name</label>
         <input
           type="text"
@@ -80,11 +83,10 @@ export function AddCompany() {
             setLocal(e.target.value);
           }}
         />
+        <button type="submit" className="submit">
+          Submit
+        </button>
       </form>
-
-      <button onClick={submitCompany} className="submit">
-        Submit
-      </button>
     </div>
   );
 }

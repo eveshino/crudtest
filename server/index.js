@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//CREATE
 app.post("/create", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -30,7 +31,7 @@ app.post("/create", (req, res) => {
     }
   );
 });
-
+//READ
 app.get("/companies", (req, res) => {
   db.query("SELECT * FROM companies", (err, result) => {
     if (err) {
@@ -40,7 +41,7 @@ app.get("/companies", (req, res) => {
     }
   });
 });
-
+//UPDATE
 app.put("/update", (req, res) => {
   const id = req.body.id;
   const name = req.body.name;
@@ -61,7 +62,7 @@ app.put("/update", (req, res) => {
     }
   );
 });
-
+//DELETE
 app.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
   db.query("DELETE FROM companies WHERE id = ?", id, (err, result) => {
